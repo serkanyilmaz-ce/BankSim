@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+    mongodb:
+        image: mongo
+
+        
+    case_study_02:
+        image: ${DOCKER_REGISTRY-}case_study_02
+        build:
+            context: .
+            dockerfile: case_study_02\Dockerfile
