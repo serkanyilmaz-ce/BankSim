@@ -1,0 +1,35 @@
+name: dockercompose13774971682591791001
+services:
+  case_study_02:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      CustomerDatabaseSettings:ConnectionString: mongodb://mongodb:27017
+    image: casestudy02
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: "8000"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: /.microsoft/usersecrets/
+      target: /root/.microsoft/usersecrets
+      bind:
+        create_host_path: true
+    - type: bind
+      source: /.aspnet/https
+      target: /root/.aspnet/https
+      bind:
+        create_host_path: true
+  casestudy02:
+    build:
+      context: C:\Users\srkny\Desktop\Projeler\C#\case_study_02
+      dockerfile: casestudy02\Dockerfile
+    image: casestudy02
+    networks:
+      default: null
+networks:
+  default:
+    name: dockercompose13774971682591791001_default

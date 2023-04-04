@@ -1,0 +1,20 @@
+version: '3,4'
+services:
+  mongodb:
+    container_name: mongodb
+    restart: always
+    volumes:
+      - $(WEBAPP_STORAGE_HOME)/site:/data/db
+    ports:
+      - "27017:27017"
+
+  casestudy02: 
+    image: ${DOCKER_REGISTERY-}casestudy02
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CustomerDatabaseSettings:ConnectionString=mongodb://mongodb:27017"
+    ports:
+      - "8000:80"
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/ 
